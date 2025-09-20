@@ -1,3 +1,4 @@
+// src/App.jsx
 import React, { useState } from "react";
 import TitleScreen from "./TitleScreen";
 import Lesson from "./Lesson";
@@ -11,7 +12,9 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      {stage === "title" && <TitleScreen onStart={() => setStage("lesson")} />}
+      {stage === "title" && (
+        <TitleScreen onStart={() => setStage("lesson")} />
+      )}
 
       {stage === "lesson" && (
         <Lesson onStartGame={() => setStage("game")} />
@@ -26,6 +29,8 @@ export default function App() {
           onReviewLesson={() => {
             if (!reviewedOnce) {
               setReviewedOnce(true);
+              setStage("lesson");
+            } else {
               setStage("lesson");
             }
           }}
