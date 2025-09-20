@@ -1,38 +1,33 @@
 /* src/Quiz.css */
 
-/* src/Quiz.css */
-
-.quiz-container {
+.quiz-screen {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: #a6d8f5; /* same light blue as lesson background */
+  background: #a6d8f5; /* same light blue as lesson */
+}
+
+.quiz-content {
+  max-width: 800px;
+  width: 100%;
+  text-align: center;
 }
 
 .quiz-card {
   background: white;
   padding: 30px;
   border-radius: 12px;
-  max-width: 700px;
-  width: 100%;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-  text-align: center;
-}
-
-.quiz-card h2 {
-  margin-bottom: 16px;
-  font-size: 1.5rem;
-  color: #333;
-}
-
-.quiz-card p {
   margin-bottom: 20px;
-  font-size: 1rem;
-  color: #444;
 }
 
-/* Quiz option buttons */
+.quiz-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
 .quiz-options {
   display: flex;
   flex-direction: column;
@@ -53,44 +48,32 @@
   background: #ddd;
 }
 
-
-.options {
+/* Match lesson nav buttons */
+.quiz-nav {
   display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  margin-top: 1rem;
+  justify-content: center;
+  gap: 12px;
 }
 
-.option {
-  padding: 0.75rem 1rem;
+.btn {
+  padding: 10px 18px;
   border: none;
-  border-radius: 0.5rem;
-  background: #3b82f6; /* blue */
-  color: white;
-  font-weight: 600;
+  border-radius: 8px;
+  font-size: 1rem;
   cursor: pointer;
-  transition: background 0.2s ease;
 }
 
-.option:hover {
-  background: #2563eb; /* darker blue */
+.btn.primary {
+  background-color: #ff9800;
+  color: white;
 }
 
-.quiz-results {
-  background: white;
-  padding: 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  max-width: 500px;
-  width: 100%;
-  text-align: center;
+.btn.secondary {
+  background-color: #e0e0e0;
+  color: #333;
 }
 
-.quiz-results h2 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-}
-
-.quiz-results p {
-  font-size: 1.1rem;
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
