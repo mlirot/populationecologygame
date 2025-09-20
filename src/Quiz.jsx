@@ -41,7 +41,7 @@ const questions = [
   {
     question: "In the game, what was the initial population of birds?",
     options: ["2", "4", "5", "20"],
-    answer: 2
+    answer: 1
   },
   {
     question: "What event increased the population by 5?",
@@ -65,7 +65,7 @@ const questions = [
   }
 ];
 
-export default function Quiz({ onBackToLesson }) {
+export default function Quiz({ onEnd }) {
   const [current, setCurrent] = useState(0);
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
@@ -122,8 +122,8 @@ export default function Quiz({ onBackToLesson }) {
           )}
 
           {showScore && (
-            <button className="btn primary" onClick={onBackToLesson}>
-              Review Lesson 📖
+            <button className="btn primary" onClick={onEnd}>
+              End Game ⬅
             </button>
           )}
         </div>
