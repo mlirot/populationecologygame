@@ -5,44 +5,17 @@ import Game from "./Game";
 import Quiz from "./Quiz";
 
 export default function App() {
-  const [screen, setScreen] = useState("title");
-  const [debugLog, setDebugLog] = useState(["App started on TITLE"]);
-
-  const goTo = (nextScreen) => {
-    setScreen(nextScreen);
-    setDebugLog((prev) => [...prev, `Switched to ${nextScreen.toUpperCase()}`]);
-  };
+  const [stage, setStage] = useState("title");
 
   return (
-    <div>
-      {screen === "title" && <TitleScreen onStart={() => goTo("lesson")} />}
-      {screen === "lesson" && <Lesson onNext={() => goTo("game")} />}
-      {screen === "game" && <Game onFinish={() => goTo("quiz")} />}
-      {screen === "quiz" && <Quiz />}
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+      {stage === "title" && <TitleScreen onStart={() => setStage("lesson")} />}
 
-      <div
-        style={{
-          position: "fixed",
-          bottom: 0,
-          left: 0,
-          width: "100%",
-          background: "rgba(0,0,0,0.85)",
-          color: "lime",
-          fontSize: "14px",
-          padding: "6px",
-          maxHeight: "150px",
-          overflowY: "auto",
-          fontFamily: "monospace",
-          zIndex: 9999,
-        }}
-      >
-        <strong>Debug Log:</strong>
-        <ul style={{ margin: 0, paddingLeft: "20px" }}>
-          {debugLog.map((msg, i) => (
-            <li key={i}>{msg}</li>
-          ))}
-        </ul>
-      </div>
+      {stage === "lesson" && <Lesson onStartGame={() => setStage("game")} />}
+
+      {stage === "game" && <Game onQuizStart={() => setStage("quiz")} />}
+
+      {stage === "quiz" && <Quiz />}
     </div>
   );
 }
