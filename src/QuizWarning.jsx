@@ -1,3 +1,4 @@
+// src/QuizWarning.jsx
 import React from "react";
 import "./Quiz.css"; 
 
