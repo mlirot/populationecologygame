@@ -78,3 +78,65 @@
   from { opacity: 0.8; }
   to { opacity: 0.4; }
 }
+/* Game.css */
+
+.game-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  background: linear-gradient(to bottom, #b3e5fc, #81d4fa);
+  min-height: 100vh;
+}
+
+.forest-container {
+  position: relative;
+  width: 600px;
+  height: 400px;
+  background: url("/forest.png") no-repeat center/cover;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+/* Birds inside forest */
+.bird {
+  position: absolute;
+  width: 50px;   /* much smaller */
+  height: auto;
+  transition: all 0.5s ease;
+}
+
+/* Fire overlay */
+.fire {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("/fire.png") no-repeat center/cover;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+/* Modal popup for scenario */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 500px;
+  text-align: center;
+}
