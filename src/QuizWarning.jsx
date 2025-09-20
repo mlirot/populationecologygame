@@ -1,24 +1,24 @@
 import React from "react";
-import "./Quiz.css"; // reuse the same style so it matches
+import "./Quiz.css"; 
 
 export default function QuizWarning({ onReviewLesson, onStartQuiz, reviewedOnce }) {
   return (
-    <div className="lesson-container">
-      <div className="lesson-card">
+    <div className="quiz-container">
+      <div className="quiz-card">
         <h2>⚠️ Warning!</h2>
         <p>
           You are about to start your quiz. Would you like to revisit the lesson
           to refresh your memory on terms?
         </p>
 
-        <div className="lesson-nav">
+        <div className="quiz-options">
           {!reviewedOnce && (
-            <button className="btn secondary" onClick={onReviewLesson}>
-              Review Lesson 🔙
+            <button onClick={onReviewLesson}>
+              🔙 Review Lesson
             </button>
           )}
-          <button className="btn primary" onClick={onStartQuiz}>
-            Start Quiz 📝
+          <button onClick={onStartQuiz}>
+            📝 Start Quiz
           </button>
         </div>
       </div>
