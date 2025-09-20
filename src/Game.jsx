@@ -140,9 +140,9 @@ export default function Game({ onQuizStart }) {
           <div className="modal-content">
             <h2>{scenario.title}</h2>
             <p>{scenario.description}</p>
-            <button className="btn primary" onClick={runScenario}>
-              Run Scenario ▶
-            </button>
+            <button className="btn primary" onClick={onQuizStart}>
+  Start Quiz 📝
+</button>
           </div>
         </div>
       )}
