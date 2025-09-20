@@ -16,7 +16,7 @@ const scenarios = [
     title: "Initial Population",
     description:
       "Welcome to your forest! 🌲 You have a starting population of 4 birds. You will run this population through a series of events to see how it is affected. Click Run Scenario when ready.",
-    change: 4,
+    change: 5,
   },
   {
     title: "Immigration / Food Increase",
