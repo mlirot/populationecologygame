@@ -110,7 +110,7 @@ const lessonSlides = [
   },
 ];
 
-export default function Lesson({ onFinish }) {
+export default function Lesson({ onStartGame }) {
   const [index, setIndex] = useState(0);
   const slide = lessonSlides[index];
 
@@ -134,7 +134,7 @@ export default function Lesson({ onFinish }) {
               Next ▶
             </button>
           ) : (
-            <button className="btn primary" onClick={onFinish}>
+            <button className="btn primary" onClick={onStartGame}>
               Start Game 🎮
             </button>
           )}
