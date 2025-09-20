@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import "./Quiz.css";
 
-export default function Quiz({ onBackToLesson }) {
-  const [stage, setStage] = useState("quiz"); // start directly in quiz
+export default function Quiz() {
+  const [stage, setStage] = useState("quiz"); // "quiz" | "results"
   const [currentQ, setCurrentQ] = useState(0);
   const [score, setScore] = useState(0);
-  const [answers, setAnswers] = useState([]);
 
   const questions = [
-   {
+    {
     question: "What is population ecology?",
     options: [
       "The study of individual animals",
@@ -71,9 +70,7 @@ export default function Quiz({ onBackToLesson }) {
 ];
 
   function handleAnswer(choice) {
-    const isCorrect = choice === questions[currentQ].correct;
-    if (isCorrect) setScore(score + 1);
-    setAnswers([...answers, { q: currentQ, choice, isCorrect }]);
+    if (choice === questions[currentQ].correct) setScore(score + 1);
 
     if (currentQ + 1 < questions.length) {
       setCurrentQ(currentQ + 1);
@@ -84,21 +81,19 @@ export default function Quiz({ onBackToLesson }) {
 
   if (stage === "quiz") {
     return (
-      <div className="lesson-container">
-        <h2 className="lesson-title">
-          Question {currentQ + 1} of {questions.length}
-        </h2>
-        <p className="lesson-text">{questions[currentQ].q}</p>
-        <div className="quiz-options">
-          {questions[currentQ].options.map((opt, i) => (
-            <button
-              key={i}
-              className="quiz-option"
-              onClick={() => handleAnswer(i)}
-            >
-              {opt}
-            </button>
-          ))}
+      <div className="quiz-container">
+        <div className="quiz-card">
+          <h2>
+            Question {currentQ + 1} of {questions.length}
+          </h2>
+          <p>{questions[currentQ].q}</p>
+          <div className="quiz-options">
+            {questions[currentQ].options.map((opt, i) => (
+              <button key={i} onClick={() => handleAnswer(i)}>
+                {opt}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     );
@@ -106,15 +101,14 @@ export default function Quiz({ onBackToLesson }) {
 
   if (stage === "results") {
     return (
-      <div className="lesson-container">
-        <h2 className="lesson-title">🎉 Quiz Complete!</h2>
-        <p className="lesson-text">
-          You scored <b>{score}</b> out of <b>{questions.length}</b>.
-        </p>
-        <p className="lesson-text">
-          Take a screenshot of this screen and paste it into your Google Slides
-          assignment.
-        </p>
+      <div className="quiz-container">
+        <div className="quiz-card">
+          <h2>🎉 Quiz Complete!</h2>
+          <p>
+            You scored <b>{score}</b> out of <b>{questions.length}</b>.
+          </p>
+          <p>Take a screenshot of this screen and paste it into your Google Slides assignment.</p>
+        </div>
       </div>
     );
   }
