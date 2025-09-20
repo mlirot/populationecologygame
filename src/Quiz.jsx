@@ -2,13 +2,8 @@
 import React, { useState } from "react";
 import "./Quiz.css";
 
-export default function Quiz() {
-  const [stage, setStage] = useState("quiz"); // "quiz" | "results"
-  const [currentQ, setCurrentQ] = useState(0);
-  const [score, setScore] = useState(0);
-
-  const questions = [
-   {
+const questions = [
+  {
     question: "What is population ecology?",
     options: [
       "The study of individual animals",
@@ -69,50 +64,70 @@ export default function Quiz() {
     answer: 2
   }
 ];
-  function handleAnswer(choice) {
-    if (choice === questions[currentQ].correct) setScore(score + 1);
 
-    if (currentQ + 1 < questions.length) {
-      setCurrentQ(currentQ + 1);
-    } else {
-      setStage("results");
+export default function Quiz({ onBackToLesson }) {
+  const [current, setCurrent] = useState(0);
+  const [score, setScore] = useState(0);
+  const [showScore, setShowScore] = useState(false);
+
+  const handleAnswer = (index) => {
+    if (index === questions[current].answer) {
+      setScore(score + 1);
     }
-  }
+    if (current < questions.length - 1) {
+      setCurrent(current + 1);
+    } else {
+      setShowScore(true);
+    }
+  };
 
-  if (stage === "quiz") {
-    return (
-      <div className="quiz-container">
-        <div className="quiz-card">
-          <h2>
-            Question {currentQ + 1} of {questions.length}
-          </h2>
-          <p>{questions[currentQ].q}</p>
-          <div className="quiz-options">
-            {questions[currentQ].options.map((opt, i) => (
-              <button key={i} onClick={() => handleAnswer(i)}>
-                {opt}
-              </button>
-            ))}
+  return (
+    <div className="quiz-screen">
+      <div className="quiz-content">
+        {!showScore ? (
+          <div className="quiz-card">
+            <h2 className="quiz-title">
+              Question {current + 1} of {questions.length}
+            </h2>
+            <p>{questions[current].question}</p>
+            <div className="quiz-options">
+              {questions[current].options.map((opt, i) => (
+                <button key={i} onClick={() => handleAnswer(i)}>
+                  {opt}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
-      </div>
-    );
-  }
+        ) : (
+          <div className="quiz-card">
+            <h2 className="quiz-title">Quiz Complete 🎉</h2>
+            <p>
+              You scored {score} out of {questions.length}
+            </p>
+            <p>
+              Take a screenshot of this screen and paste it into your Google
+              Slides assignment!
+            </p>
+          </div>
+        )}
 
-  if (stage === "results") {
-    return (
-      <div className="quiz-container">
-        <div className="quiz-card">
-          <h2>🎉 Quiz Complete!</h2>
-          <p>
-            You scored <b>{score}</b> out of <b>{questions.length}</b>.
-          </p>
-          <p>
-            Take a screenshot of this screen and paste it into your Google Slides
-            assignment.
-          </p>
+        <div className="quiz-nav">
+          {current > 0 && !showScore && (
+            <button
+              className="btn secondary"
+              onClick={() => setCurrent(current - 1)}
+            >
+              ◀ Back
+            </button>
+          )}
+
+          {showScore && (
+            <button className="btn primary" onClick={onBackToLesson}>
+              Review Lesson 📖
+            </button>
+          )}
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
