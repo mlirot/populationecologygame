@@ -39,7 +39,5 @@ export default function App() {
         />
       )}
 
-      {stage === "quiz" && <Quiz />}
-    </div>
-  );
-}
+      {stage === "quiz" && <Quiz onEnd={() => setStage("title")} />}
+
