@@ -156,9 +156,12 @@ export default function Game({ onFinish }) {
       )}
 
       {startQuiz && (
-        <button className="btn primary" onClick={onFinish}>
-          Start Quiz 📝
-        </button>
+       <button
+  className="lesson-button next"
+  onClick={() => setStage("quiz")}
+>
+  🚀 Start Quiz
+</button>
       )}
     </div>
   );
