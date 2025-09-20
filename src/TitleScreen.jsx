@@ -1,21 +1,30 @@
+// src/TitleScreen.jsx
 import React from "react";
 
 export default function TitleScreen({ onStart }) {
-  const handleClick = () => {
-    alert("Debug: Start Lesson button clicked!");
-    onStart();
-  };
-
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-green-400 to-green-600 text-white p-6 text-center">
-      <h1 className="text-5xl font-bold mb-4">🌿 Ecosystem Adventure Challenge 🌍</h1>
-      <p className="text-xl mb-8">A fun way to learn about Population Ecology!</p>
-      <button
-        onClick={handleClick}
-        className="px-6 py-3 bg-yellow-500 hover:bg-yellow-600 text-black rounded-xl shadow-lg font-semibold transition"
-      >
-        Start Lesson
-      </button>
+    <div className="title-screen" role="main" aria-label="Title screen">
+      <div className="title-inner">
+        <div className="title-row" aria-hidden="false">
+          <span className="emoji-left" aria-hidden="true">🍃</span>
+
+          <h1 className="title-text">Ecosystem Adventure Challenge</h1>
+
+          <span className="emoji-right" aria-hidden="true">🌍</span>
+        </div>
+
+        <p className="subtitle">A fun way to learn about Population Ecology!</p>
+
+        <button
+          className="btn primary"
+          onClick={() => {
+            // small safety: ensure onStart exists
+            if (typeof onStart === "function") onStart();
+          }}
+        >
+          Start Lesson
+        </button>
+      </div>
     </div>
   );
 }
