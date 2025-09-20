@@ -1,52 +1,62 @@
-.game-layout {
+/* Game.css */
+
+.game-container {
   display: flex;
-  gap: 2rem;
-  margin-top: 1rem;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  background: linear-gradient(to bottom, #b3e5fc, #81d4fa);
+  min-height: 100vh;
 }
 
-.forest-box {
+.forest-container {
   position: relative;
-  width: 400px;
-  height: 300px;
-  border: 2px solid #333;
+  width: 600px;
+  height: 400px;
+  background: url("/forest.png") no-repeat center/cover;
+  border-radius: 12px;
   overflow: hidden;
+  margin-bottom: 20px;
 }
 
-.forest-bg {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.birds-container {
+/* Birds inside forest */
+.bird {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.bird-img {
-  position: absolute;
-  width: 30px;
+  width: 50px;   /* much smaller */
   height: auto;
+  transition: all 0.5s ease;
 }
 
-.fire-overlay {
+/* Fire overlay */
+.fire {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  animation: flicker 1s infinite alternate;
+  background: url("/fire.png") no-repeat center/cover;
+  opacity: 0.8;
+  pointer-events: none;
 }
 
-@keyframes flicker {
-  from {
-    opacity: 0.7;
-  }
-  to {
-    opacity: 1;
-  }
+/* Modal popup for scenario */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 500px;
+  text-align: center;
 }
