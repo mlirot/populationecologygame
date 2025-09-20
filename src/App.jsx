@@ -13,7 +13,7 @@ export default function App() {
 
       {stage === "lesson" && <Lesson onStartGame={() => setStage("game")} />}
 
-      {stage === "game" && <Game onQuizStart={() => setStage("quiz")} />}
+      {stage === "game" && <Game onFinish={() => setStage("quiz")} />}
 
       {stage === "quiz" && <Quiz />}
     </div>
