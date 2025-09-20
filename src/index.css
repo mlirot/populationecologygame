@@ -117,46 +117,65 @@ body {
 }
 /* ---- Lesson Screen ---- */
 .lesson-screen {
-  min-height: calc(100vh - 0px);
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 40px 20px;
+  flex-direction: column;
+  text-align: center;
+  color: white;
+}
+
+.lesson-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  max-width: 900px;
+  width: 100%;
+}
+
+.lesson-title {
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: white;
 }
 
 .lesson-card {
   background: white;
-  border-radius: 20px;
-  padding: 40px 28px;
-  max-width: 720px;
+  border-radius: 16px;
+  padding: 28px;
   width: 100%;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-  text-align: center;
+  color: #1e293b; /* dark slate for readability */
+  font-size: clamp(15px, 1.4vw, 18px);
+  line-height: 1.6;
+  text-align: left;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   animation: fadeIn 0.4s ease;
 }
 
-.lesson-title {
-  font-size: clamp(20px, 3vw, 28px);
-  font-weight: 700;
-  margin-bottom: 16px;
-  color: #0f172a;
-}
-
-.lesson-text {
-  font-size: clamp(15px, 1.6vw, 18px);
-  margin-bottom: 30px;
-  color: #334155;
-  line-height: 1.6;
+.lesson-card ul {
+  margin-left: 20px;
+  list-style: disc;
 }
 
 .lesson-nav {
   display: flex;
   justify-content: space-between;
   gap: 20px;
+  width: 100%;
+  max-width: 400px;
 }
 
-/* nice little fade animation when changing slides */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
