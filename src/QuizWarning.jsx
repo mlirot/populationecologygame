@@ -1,5 +1,5 @@
 import React from "react";
-import "./Lesson.css"; // reuse the same style so it matches
+import "./Quiz.css"; // reuse the same style so it matches
 
 export default function QuizWarning({ onReviewLesson, onStartQuiz, reviewedOnce }) {
   return (
