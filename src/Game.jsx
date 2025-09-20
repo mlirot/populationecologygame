@@ -104,13 +104,19 @@ export default function Game({ onQuizStart }) {
           {getBirdPositions(population).map((pos, i) => (
             <img
               key={i}
-              src="/bird.png"
+              src={`${import.meta.env.BASE_URL}bird.png`}
               alt="bird"
               className="bird"
               style={{ top: pos.top, left: pos.left }}
             />
           ))}
-          {scenario.fire && !showModal && <div className="fire"></div>}
+          {scenario.fire && !showModal && (
+            <img
+              src={`${import.meta.env.BASE_URL}fire.png`}
+              alt="fire"
+              className="fire"
+            />
+          )}
         </div>
 
         <div className="graph-container">
@@ -120,38 +126,4 @@ export default function Game({ onQuizStart }) {
               <XAxis dataKey="name" />
               <YAxis />
               <Tooltip />
-              <Line type="monotone" dataKey="population" stroke="#ff5722" />
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
-      </div>
-
-      {/* Scenario modal */}
-      {showModal && (
-        <div className="modal">
-          <div className="modal-content">
-            <h2>{scenario.title}</h2>
-            <p>{scenario.description}</p>
-            <button className="btn primary" onClick={runScenario}>
-              Run Scenario ▶
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* Navigation */}
-      {!showModal && step < scenarios.length - 1 && (
-        <button className="btn primary" onClick={nextScenario}>
-          Next Scenario ▶
-        </button>
-      )}
-
-      {/* Quiz starts only after ALL scenarios */}
-      {finishedGame && (
-        <button className="btn primary" onClick={onQuizStart}>
-          Start Quiz 📝
-        </button>
-      )}
-    </div>
-  );
-}
+              <Lin
