@@ -34,7 +34,6 @@ export default function App() {
         />
       )}
 
-      {stage === "quiz" && <Quiz />}
-    </div>
-  );
-}
+     {stage === "quiz" && (
+  <Quiz onBackToLesson={() => setStage("lesson")} />
+)}
