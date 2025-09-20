@@ -42,3 +42,4 @@ export default function App() {
       {stage === "quiz" && <Quiz onEnd={() => setStage("title")} />}
     </div>
   );
+}
