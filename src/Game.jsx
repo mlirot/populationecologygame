@@ -45,9 +45,8 @@ const scenarios = [
   },
 ];
 
-// ✅ Helper to arrange birds in neat rows
 const getBirdPositions = (count) => {
-  const rows = Math.ceil(count / 5); // 5 birds per row
+  const rows = Math.ceil(count / 5);
   const positions = [];
   let birdIndex = 0;
 
@@ -101,7 +100,6 @@ export default function Game({ onQuizStart }) {
   return (
     <div className="game-container">
       <div className="content-row">
-        {/* Forest with birds */}
         <div className="forest-container">
           {getBirdPositions(population).map((pos, i) => (
             <img
@@ -109,18 +107,12 @@ export default function Game({ onQuizStart }) {
               src="/bird.png"
               alt="bird"
               className="bird"
-              style={{
-                top: pos.top,
-                left: pos.left,
-              }}
+              style={{ top: pos.top, left: pos.left }}
             />
           ))}
-
-          {/* Fire overlay for last scenario */}
           {scenario.fire && !showModal && <div className="fire"></div>}
         </div>
 
-        {/* Graph */}
         <div className="graph-container">
           <ResponsiveContainer>
             <LineChart data={history}>
@@ -140,24 +132,24 @@ export default function Game({ onQuizStart }) {
           <div className="modal-content">
             <h2>{scenario.title}</h2>
             <p>{scenario.description}</p>
-            <button className="btn primary" onClick={onQuizStart}>
-  Start Quiz 📝
-</button>
+            <button className="btn primary" onClick={runScenario}>
+              Run Scenario ▶
+            </button>
           </div>
         </div>
       )}
 
       {/* Navigation */}
-      {!showModal && !finishedGame && (
+      {!showModal && step < scenarios.length - 1 && (
         <button className="btn primary" onClick={nextScenario}>
           Next Scenario ▶
         </button>
       )}
 
-      {/* 🚀 Start Quiz Button → goes back to App.jsx */}
+      {/* Quiz starts only after ALL scenarios */}
       {finishedGame && (
-        <button className="lesson-button next" onClick={onQuizStart}>
-          🚀 Start Quiz
+        <button className="btn primary" onClick={onQuizStart}>
+          Start Quiz 📝
         </button>
       )}
     </div>
