@@ -16,7 +16,7 @@ const scenarios = [
     title: "Initial Population",
     description:
       "Welcome to your forest! 🌲 You have a starting population of 4 birds. You will run this population through a series of events to see how it is affected. Click Run Scenario when ready.",
-    change: 5,
+    change: 4,
   },
   {
     title: "Immigration / Food Increase",
@@ -44,25 +44,6 @@ const scenarios = [
     fire: true,
   },
 ];
-
-// ✅ NEW: Helper to place birds in rows instead of random
-const getBirdPositions = (count) => {
-  const rows = Math.ceil(count / 5); // 5 birds per row
-  const positions = [];
-  let birdIndex = 0;
-
-  for (let row = 0; row < rows; row++) {
-    const birdsInRow = Math.min(5, count - birdIndex);
-    for (let col = 0; col < birdsInRow; col++) {
-      positions.push({
-        left: `${15 + col * 15}%`,
-        top: `${20 + row * 15}%`,
-      });
-      birdIndex++;
-    }
-  }
-  return positions;
-};
 
 export default function Game({ onFinish }) {
   const [step, setStep] = useState(0);
@@ -99,40 +80,37 @@ export default function Game({ onFinish }) {
   const startQuiz = step === scenarios.length - 1 && !showModal;
 
   return (
-    // ✅ Make forest + graph sit side-by-side
     <div className="game-container">
-      <div className="content-row">
-        {/* Forest with birds */}
-        <div className="forest-container">
-          {getBirdPositions(population).map((pos, i) => (
-            <img
-              key={i}
-              src="/bird.png"
-              alt="bird"
-              className="bird"
-              style={{
-                top: pos.top,
-                left: pos.left,
-              }}
-            />
-          ))}
+      <div className="forest-container">
+        {/* Birds */}
+        {Array.from({ length: population }).map((_, i) => (
+          <img
+            key={i}
+            src="/bird.png"
+            alt="bird"
+            className="bird"
+            style={{
+              top: `${Math.random() * 70 + 10}%`,
+              left: `${Math.random() * 70 + 10}%`,
+            }}
+          />
+        ))}
 
-          {/* Fire overlay for last scenario */}
-          {scenario.fire && !showModal && <div className="fire"></div>}
-        </div>
+        {/* Fire overlay for last scenario */}
+        {scenario.fire && !showModal && <div className="fire"></div>}
+      </div>
 
-        {/* Graph */}
-        <div className="graph-container">
-          <ResponsiveContainer>
-            <LineChart data={history}>
-              <CartesianGrid stroke="#ccc" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Line type="monotone" dataKey="population" stroke="#ff5722" />
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
+      {/* Graph */}
+      <div style={{ width: "600px", height: "300px", marginTop: "20px" }}>
+        <ResponsiveContainer>
+          <LineChart data={history}>
+            <CartesianGrid stroke="#ccc" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Line type="monotone" dataKey="population" stroke="#ff5722" />
+          </LineChart>
+        </ResponsiveContainer>
       </div>
 
       {/* Scenario modal */}
