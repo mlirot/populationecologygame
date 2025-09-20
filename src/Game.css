@@ -34,3 +34,47 @@
   from { opacity: 0.8; }
   to { opacity: 0.4; }
 }
+/* Put forest + graph side by side */
+.content-row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.forest-container {
+  position: relative;
+  width: 500px;
+  height: 350px;
+  background: url("/forest.png") center/cover no-repeat;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.graph-container {
+  width: 500px;
+  height: 350px;
+}
+
+.bird {
+  position: absolute;
+  width: 60px;
+  transition: all 0.5s ease;
+}
+
+.fire {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("/fire.png") center/cover no-repeat;
+  opacity: 0.6;
+  animation: fireFlicker 1s infinite alternate;
+}
+
+@keyframes fireFlicker {
+  from { opacity: 0.8; }
+  to { opacity: 0.4; }
+}
