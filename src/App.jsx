@@ -4,7 +4,7 @@ import TitleScreen from "./TitleScreen";
 import Lesson from "./Lesson";
 import Game from "./Game";
 import Quiz from "./Quiz";
-import QuizWarning from "./QuizWarning"; // new component
+import QuizWarning from "./QuizWarning";
 
 export default function App() {
   const [stage, setStage] = useState("title");
@@ -40,4 +40,5 @@ export default function App() {
       )}
 
       {stage === "quiz" && <Quiz onEnd={() => setStage("title")} />}
-
+    </div>
+  );
