@@ -16,7 +16,7 @@ const scenarios = [
     title: "Initial Population",
     description:
       "Welcome to your forest! 🌲 You have a starting population of 4 birds. You will run this population through a series of events to see how it is affected. Click Run Scenario when ready.",
-    change: 4,
+    change: 5,
   },
   {
     title: "Immigration / Food Increase",
@@ -45,7 +45,7 @@ const scenarios = [
   },
 ];
 
-// ✅ NEW: Helper to place birds in rows instead of random
+// ✅ Helper to arrange birds in neat rows
 const getBirdPositions = (count) => {
   const rows = Math.ceil(count / 5); // 5 birds per row
   const positions = [];
@@ -64,7 +64,7 @@ const getBirdPositions = (count) => {
   return positions;
 };
 
-export default function Game({ onFinish }) {
+export default function Game({ onQuizStart }) {
   const [step, setStep] = useState(0);
   const [population, setPopulation] = useState(0);
   const [history, setHistory] = useState([]);
@@ -96,10 +96,9 @@ export default function Game({ onFinish }) {
     }
   };
 
-  const startQuiz = step === scenarios.length - 1 && !showModal;
+  const finishedGame = step === scenarios.length - 1 && !showModal;
 
   return (
-    // ✅ Make forest + graph sit side-by-side
     <div className="game-container">
       <div className="content-row">
         {/* Forest with birds */}
@@ -149,19 +148,17 @@ export default function Game({ onFinish }) {
       )}
 
       {/* Navigation */}
-      {!showModal && !startQuiz && (
+      {!showModal && !finishedGame && (
         <button className="btn primary" onClick={nextScenario}>
           Next Scenario ▶
         </button>
       )}
 
-      {startQuiz && (
-       <button
-  className="lesson-button next"
-  onClick={() => setStage("quiz")}
->
-  🚀 Start Quiz
-</button>
+      {/* 🚀 Start Quiz Button → goes back to App.jsx */}
+      {finishedGame && (
+        <button className="lesson-button next" onClick={onQuizStart}>
+          🚀 Start Quiz
+        </button>
       )}
     </div>
   );
