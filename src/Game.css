@@ -1,6 +1,6 @@
 .forest-area {
   position: relative;
-  width: 600px;   /* match your forest image size */
+  width: 600px;
   height: 400px;
   margin: 20px auto;
   overflow: hidden;
@@ -15,8 +15,8 @@
 
 .bird {
   position: absolute;
-  width: 60px;        /* much smaller */
-  transition: all 0.5s ease; /* smooth moves */
+  width: 60px;  /* smaller birds */
+  transition: all 0.5s ease;
 }
 
 .fire-overlay {
@@ -26,11 +26,10 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  pointer-events: none; /* don't block clicks */
+  pointer-events: none;
   animation: fireFlicker 1s infinite alternate;
 }
 
-/* Optional fire flicker effect */
 @keyframes fireFlicker {
   from { opacity: 0.8; }
   to { opacity: 0.4; }
