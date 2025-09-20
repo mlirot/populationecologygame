@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import "./Quiz.css";
 
 export default function Quiz({ onBackToLesson }) {
-  const [stage, setStage] = useState("warning"); // "warning" | "quiz" | "results"
+  const [stage, setStage] = useState("quiz"); // start directly in quiz
   const [currentQ, setCurrentQ] = useState(0);
   const [score, setScore] = useState(0);
   const [answers, setAnswers] = useState([]);
 
   const questions = [
-    {
+   {
     question: "What is population ecology?",
     options: [
       "The study of individual animals",
@@ -69,7 +69,7 @@ export default function Quiz({ onBackToLesson }) {
     answer: 2
   }
 ];
-  
+
   function handleAnswer(choice) {
     const isCorrect = choice === questions[currentQ].correct;
     if (isCorrect) setScore(score + 1);
@@ -80,30 +80,6 @@ export default function Quiz({ onBackToLesson }) {
     } else {
       setStage("results");
     }
-  }
-
-  if (stage === "warning") {
-    return (
-      <div className="lesson-container">
-        <h2 className="lesson-title">⚠️ Warning</h2>
-        <p className="lesson-text">
-          You are about to start your quiz! Would you like to revisit the lesson
-          to refresh your memory on terms? You may only go back once before taking
-          the quiz.
-        </p>
-        <div className="lesson-buttons">
-          <button className="lesson-button back" onClick={onBackToLesson}>
-            🔙 Review Lesson
-          </button>
-          <button
-            className="lesson-button next"
-            onClick={() => setStage("quiz")}
-          >
-            🚀 Start Quiz
-          </button>
-        </div>
-      </div>
-    );
   }
 
   if (stage === "quiz") {
