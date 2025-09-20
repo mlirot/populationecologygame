@@ -1,3 +1,4 @@
+// src/Quiz.jsx
 import React, { useState } from "react";
 import "./Quiz.css";
 
@@ -7,7 +8,7 @@ export default function Quiz() {
   const [score, setScore] = useState(0);
 
   const questions = [
-    {
+   {
     question: "What is population ecology?",
     options: [
       "The study of individual animals",
@@ -68,7 +69,6 @@ export default function Quiz() {
     answer: 2
   }
 ];
-
   function handleAnswer(choice) {
     if (choice === questions[currentQ].correct) setScore(score + 1);
 
@@ -107,7 +107,10 @@ export default function Quiz() {
           <p>
             You scored <b>{score}</b> out of <b>{questions.length}</b>.
           </p>
-          <p>Take a screenshot of this screen and paste it into your Google Slides assignment.</p>
+          <p>
+            Take a screenshot of this screen and paste it into your Google Slides
+            assignment.
+          </p>
         </div>
       </div>
     );
