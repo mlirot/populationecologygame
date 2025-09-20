@@ -1,9 +1,13 @@
-// src/Quiz.jsx
 import React, { useState } from "react";
 import "./Quiz.css";
 
-const questions = [
-  {
+export default function Quiz({ onBackToLesson }) {
+  const [stage, setStage] = useState("warning"); // "warning" | "quiz" | "results"
+  const [currentQ, setCurrentQ] = useState(0);
+  const [score, setScore] = useState(0);
+  const [answers, setAnswers] = useState([]);
+
+  const questions = [
     {
     question: "What is population ecology?",
     options: [
@@ -65,56 +69,77 @@ const questions = [
     answer: 2
   }
 ];
+  
+  function handleAnswer(choice) {
+    const isCorrect = choice === questions[currentQ].correct;
+    if (isCorrect) setScore(score + 1);
+    setAnswers([...answers, { q: currentQ, choice, isCorrect }]);
 
-export default function Quiz() {
-  const [current, setCurrent] = useState(0);
-  const [score, setScore] = useState(0);
-  const [finished, setFinished] = useState(false);
-
-  const handleAnswer = (index) => {
-    if (index === questions[current].answer) {
-      setScore(score + 1);
-    }
-
-    if (current < questions.length - 1) {
-      setCurrent(current + 1);
+    if (currentQ + 1 < questions.length) {
+      setCurrentQ(currentQ + 1);
     } else {
-      setFinished(true);
+      setStage("results");
     }
-  };
+  }
 
-  return (
-    <div className="quiz-container">
-      {!finished ? (
-        <div className="quiz-card">
-          <h2>
-            Question {current + 1} of {questions.length}
-          </h2>
-          <p>{questions[current].question}</p>
-          <div className="options">
-            {questions[current].options.map((opt, i) => (
-              <button
-                key={i}
-                className="btn option"
-                onClick={() => handleAnswer(i)}
-              >
-                {opt}
-              </button>
-            ))}
-          </div>
+  if (stage === "warning") {
+    return (
+      <div className="lesson-container">
+        <h2 className="lesson-title">⚠️ Warning</h2>
+        <p className="lesson-text">
+          You are about to start your quiz! Would you like to revisit the lesson
+          to refresh your memory on terms? You may only go back once before taking
+          the quiz.
+        </p>
+        <div className="lesson-buttons">
+          <button className="lesson-button back" onClick={onBackToLesson}>
+            🔙 Review Lesson
+          </button>
+          <button
+            className="lesson-button next"
+            onClick={() => setStage("quiz")}
+          >
+            🚀 Start Quiz
+          </button>
         </div>
-      ) : (
-        <div className="quiz-results">
-          <h2>Quiz Complete 🎉</h2>
-          <p>
-            You scored <strong>{score}</strong> out of {questions.length}.
-          </p>
-          <p>
-            📸 Take a screenshot of this screen and paste it into your Google
-            Slides assignment.
-          </p>
+      </div>
+    );
+  }
+
+  if (stage === "quiz") {
+    return (
+      <div className="lesson-container">
+        <h2 className="lesson-title">
+          Question {currentQ + 1} of {questions.length}
+        </h2>
+        <p className="lesson-text">{questions[currentQ].q}</p>
+        <div className="quiz-options">
+          {questions[currentQ].options.map((opt, i) => (
+            <button
+              key={i}
+              className="quiz-option"
+              onClick={() => handleAnswer(i)}
+            >
+              {opt}
+            </button>
+          ))}
         </div>
-      )}
-    </div>
-  );
+      </div>
+    );
+  }
+
+  if (stage === "results") {
+    return (
+      <div className="lesson-container">
+        <h2 className="lesson-title">🎉 Quiz Complete!</h2>
+        <p className="lesson-text">
+          You scored <b>{score}</b> out of <b>{questions.length}</b>.
+        </p>
+        <p className="lesson-text">
+          Take a screenshot of this screen and paste it into your Google Slides
+          assignment.
+        </p>
+      </div>
+    );
+  }
 }
