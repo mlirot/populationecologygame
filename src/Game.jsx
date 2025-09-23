@@ -1,5 +1,5 @@
 // src/Game.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   LineChart,
   Line,
@@ -29,6 +29,7 @@ const scenarios = [
     description:
       "The population reproduces successfully. The population increases by 10.",
     change: 10,
+    jCurve: true, // mark this scenario for J-curve explanation
   },
   {
     title: "Predation",
@@ -44,6 +45,23 @@ const scenarios = [
     fire: true,
   },
 ];
+
+// Helper: calculate population history up to a given step
+const calculateHistory = (step) => {
+  let pop = 0;
+  const newHistory = [];
+
+  for (let i = 0; i <= step; i++) {
+    const sc = scenarios[i];
+    let change =
+      typeof sc.change === "function" ? sc.change(pop) : sc.change;
+
+    pop = Math.max(0, pop + change);
+    newHistory.push({ name: sc.title, population: pop });
+  }
+
+  return newHistory;
+};
 
 const getBirdPositions = (count) => {
   const rows = Math.ceil(count / 5);
@@ -68,29 +86,40 @@ export default function Game({ onQuizStart }) {
   const [population, setPopulation] = useState(0);
   const [history, setHistory] = useState([]);
   const [showModal, setShowModal] = useState(true);
+  const [showJCurve, setShowJCurve] = useState(false);
 
   const scenario = scenarios[step];
 
+  // Recalculate history + population whenever step or modal changes
+  useEffect(() => {
+    if (step >= 0) {
+      const newHistory = calculateHistory(step - (showModal ? 1 : 0));
+      setHistory(newHistory);
+      setPopulation(
+        newHistory.length
+          ? newHistory[newHistory.length - 1].population
+          : 0
+      );
+    }
+  }, [step, showModal]);
+
   const runScenario = () => {
-    let change =
-      typeof scenario.change === "function"
-        ? scenario.change(population)
-        : scenario.change;
-
-    const newPop = Math.max(0, population + change);
-
-    setPopulation(newPop);
-    setHistory((prev) => [
-      ...prev,
-      { name: scenario.title, population: newPop },
-    ]);
-
     setShowModal(false);
+    if (scenario.jCurve) {
+      setShowJCurve(true);
+    }
   };
 
   const nextScenario = () => {
     if (step < scenarios.length - 1) {
       setStep(step + 1);
+      setShowModal(true);
+    }
+  };
+
+  const goBack = () => {
+    if (step > 0) {
+      setStep(step - 1);
       setShowModal(true);
     }
   };
@@ -145,12 +174,44 @@ export default function Game({ onQuizStart }) {
         </div>
       )}
 
-      {/* Navigation */}
-      {!showModal && step < scenarios.length - 1 && (
-        <button className="btn primary" onClick={nextScenario}>
-          Next Scenario ▶
-        </button>
+      {/* J-Curve modal */}
+      {showJCurve && (
+        <div className="modal">
+          <div className="modal-content">
+            <span
+              style={{ float: "right", cursor: "pointer" }}
+              onClick={() => setShowJCurve(false)}
+            >
+              &times;
+            </span>
+            <h3>J-Curve / Exponential Growth</h3>
+            <p>
+              This scenario shows a J-curve (exponential growth). The population
+              grows rapidly with no immediate limit. This demonstrates how
+              populations can increase quickly under ideal conditions.
+            </p>
+          </div>
+        </div>
       )}
+
+      {/* Navigation */}
+      <div style={{ marginTop: "10px" }}>
+        {!showModal && step > 0 && (
+          <button
+            className="btn primary"
+            onClick={goBack}
+            style={{ marginRight: "10px" }}
+          >
+            ◀ Back
+          </button>
+        )}
+
+        {!showModal && step < scenarios.length - 1 && (
+          <button className="btn primary" onClick={nextScenario}>
+            Next Scenario ▶
+          </button>
+        )}
+      </div>
 
       {/* Quiz starts only after ALL scenarios */}
       {finishedGame && (
