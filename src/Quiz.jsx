@@ -105,8 +105,7 @@ export default function Quiz({ onEnd }) {
               You scored {score} out of {questions.length}
             </p>
             <p>
-              Take a screenshot of this screen and paste it into your Google
-              Slides assignment!
+              Take a screenshot of this screen and paste it into your canvas submission!
             </p>
           </div>
         )}
